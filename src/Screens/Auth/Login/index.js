@@ -1,22 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, StatusBar, Image, TouchableWithoutFeedback } from 'react-native';
 import { Icons } from '../../../Assets';
 
 // Libararies----------------------------------------------------------------
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { AuthContext } from '../../../Context';
 // Constants----------------------------------------------------------------
 import AppButton from '../../../Constants/Button';
 import AppHeader from '../../../Constants/Header';
 import AppTextInput from '../../../Constants/TextInput';
 import { Colors } from '../../../Utils';
+import { adduserdata } from '../../../Redux/UserReducer';
+import { useDispatch } from 'react-redux';
+
 export default function Login({ navigation }) {
+    const { signIn } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const adduserData = (data) => dispatch(adduserdata(data));
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [validationMessage, setValidationMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [responseError, setResponseError] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
 
-    const handleLogin = () => {
-        navigation.navigate('Home')
+    const handleLogin = async () => {
+        const data = {
+            email,
+            password,
+        }
+        try {
+            await signIn(
+                data,
+                // rememberMe,
+                adduserData,
+                setLoading,
+                // setResponseError,
+                // setModalVisible,
+            );
+        } catch (e) {
+            console.warn(JSON.parse(e));
+        }
         // if (email == '' || email == null) {
         //     setValidationMessage('Enter a valid email')
         // }
@@ -45,7 +69,7 @@ export default function Login({ navigation }) {
                         </View>
                     </View>
                     <View style={styles.section3}>
-                        <AppButton mlarge text="Sign In" onPressed={handleLogin} />
+                        <AppButton loading={loading} mlarge text="Sign In" onPressed={handleLogin} />
                     </View>
                 </View>
                 <View style={styles.box2}>
@@ -55,7 +79,7 @@ export default function Login({ navigation }) {
                     </View>
                     <View style={styles.section5}>
                         <Text style={styles.textStyle}>Don't have an account?
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('SignUp')}>
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Role')}>
                                 <Text style={styles.linkStyle}> Sign Up</Text>
                             </TouchableWithoutFeedback>
 

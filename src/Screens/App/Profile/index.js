@@ -49,20 +49,7 @@ export default class Profile extends React.Component {
                     <View style={{ flex: 1, width: wp('92%'), alignSelf: 'center', marginVertical: 20, }}>
                         <MyTabs />
                     </View>
-                    {/* <View style={styles.filterView}>
-                        <TouchableWithoutFeedback onPress={() => console.warn('Filter on')} style={styles.filterContent}>
-                            <Image source={Icons.filterIcon} style={styles.filterIconStyle} />
-                            <Text style={styles.filterTextStyle}>Filters</Text>
-                        </TouchableWithoutFeedback>
-                    </View> */}
-                    {/* <ScrollView style={{ backgroundColor: Colors.White }}>
-                        <AppCard postImage={Images.img1} title="Opportunity 001" roi='20' ivAm='20,000' ivDu='10' br='5%' status={0} verified={true} />
-                        <AppCard postImage={Images.img2} title="Opportunity 001" roi='20' ivAm='20,000' ivDu='10' br='5%' status={1} verified={true} />
-                        <AppCard postImage={Images.img1} title="Opportunity 001" roi='20' ivAm='20,000' ivDu='10' br='5%' status={1} verified={true} />
-                        <AppCard postImage={Images.img2} title="Opportunity 001" roi='20' ivAm='20,000' ivDu='10' br='5%' status={1} verified={true} />
-                    </ScrollView> */}
                 </View>
-                {/* Bottomtab */}
                 <View>
 
                 </View>

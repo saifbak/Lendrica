@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, Image, TouchableWithoutFeedback, StyleSheet, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icons } from '../../../Assets';
@@ -14,14 +14,40 @@ import CheckBox from 'react-native-check-box'
 import AppButton from '../../../Constants/Button';
 import AppHeader from '../../../Constants/Header';
 import AppTextInput from '../../../Constants/TextInput';
+import { AuthContext } from '../../../Context';
 
 export default function SignUp(props) {
-    const { navigation } = props;
+    const { signUp } = useContext(AuthContext);
+
+    const { navigation, route } = props;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
     const [isSelected, setSelection] = useState(false);
+    const [role, setRole] = useState(null)
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setState()
+    })
+
+    async function setState() {
+        await setRole(route.params.roleID)
+    }
+    const handleSignup = async () => {
+        const data = {
+            name,
+            email: email.toLowerCase(),
+            password,
+            role_id: role
+        }
+        try {
+            await signUp(data, navigation, setLoading);
+        } catch (e) {
+            console.warn(JSON.parse(e));
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -48,7 +74,7 @@ export default function SignUp(props) {
                             />
                         </View>
                         <View>
-                            <AppButton text='Sign Up As Investor' onPressed={() => navigation.navigate('Home')} />
+                            <AppButton loading={loading} text={role == 2 ? 'Sign Up As Investor' : 'Sign Up As Borrower'} onPressed={handleSignup} />
                         </View>
                     </View>
                 </View>

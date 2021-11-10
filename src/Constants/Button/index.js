@@ -1,16 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 
 // Libararies----------------------------------------------------------------
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Colors } from '../../Utils';
 
 export default function AppButton(props) {
-    const { left, text, onPressed, large, medium, small, icon } = props;
+    const { left, text, onPressed, large, loading, medium, small, icon } = props;
     return (
         <TouchableOpacity style={styles(props).container} onPress={onPressed}>
             <View style={styles(props).content}>
-                <Text style={styles(props).textStyle}> {text} </Text>
+                {loading == true ? <ActivityIndicator color={Colors.White} />
+                    :
+                    <Text style={styles(props).textStyle}> {text} </Text>
+                }
             </View>
             {left && <View style={styles(props).icon}>
                 <Image source={icon} style={{ width: small ? 31 : 23, height: small ? 31 : 23, resizeMode: 'contain' }} />

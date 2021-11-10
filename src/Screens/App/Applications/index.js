@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, StatusBar, Image, } from 'react-native';
 
 // Utils----------------------------------------------------------------
@@ -10,21 +10,32 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DeviceInfo from 'react-native-device-info';
-
+import { AuthContext } from '../../../Context';
 // Constants----------------------------------------------------------------
 import AppBar from '../../../Constants/Bar';
 import AppCard from '../../../Constants/Card';
 import AppHeader from '../../../Constants/Header';
+import { useSelector } from 'react-redux';
 
 export default function Applications() {
+    const { signOut } = useContext(AuthContext);
+
     let hasNotch = DeviceInfo.hasNotch();
+
+    const userDetails = useSelector(state => state.UserReducer)
+    console.warn('userDetails', userDetails)
+
+    const handleLogout = () => {
+        signOut();
+    }
+    // const { state } = useContext(AuthContext);
     return (
         <>
             <StatusBar />
             <View style={{ height: hasNotch === false ? hp(1) : hp(4), backgroundColor: Colors.GoldenD }} />
             <View style={styles.container}>
-                <AppHeader leftIcon={Icons.humburger} rightIcon={Icons.bell} logo />
-                <AppBar name='John Doe' profileImage={Images.profile} currentAmount={10000} />
+                <AppHeader leftIcon={Icons.humburger} rightIcon={Icons.logoutIcon} logo rightPressed={handleLogout} />
+                <AppBar name={userDetails ? userDetails?.name : ''} profileImage={Images.profile} currentAmount={10000} />
                 <View style={styles.filterView}>
                     <TouchableWithoutFeedback onPress={() => console.warn('Filter on')} style={styles.filterContent}>
                         <Image source={Icons.filterIcon} style={styles.filterIconStyle} />

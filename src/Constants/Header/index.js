@@ -8,7 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Icons } from '../../Assets';
 
 export default function AppHeader(props) {
-    const { left, text, onPressed, right, logo, leftIcon, rightIcon } = props;
+    const { left, text, onPressed, right, logo, leftIcon, rightIcon, rightPressed } = props;
     return (
         <LinearGradient colors={[Colors.GoldenD, Colors.GoldenL,]} style={styles.container}>
             <View style={styles.container}>
@@ -27,8 +27,8 @@ export default function AppHeader(props) {
                         </View>}
                 </View>
                 <View style={styles.box3}>
-                    <TouchableWithoutFeedback onPress={onPressed}>
-                        <Image source={rightIcon} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
+                    <TouchableWithoutFeedback onPress={rightPressed}>
+                        <Image source={rightIcon} style={{ width: 25, height: 25, resizeMode: 'contain', tintColor: Colors.White }} />
                     </TouchableWithoutFeedback>
                 </View>
             </View>

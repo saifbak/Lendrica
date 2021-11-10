@@ -16,23 +16,35 @@ export default function RoleSelection(props) {
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.box1}>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('SignUp')} >
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('Auth', {
+                        screen: 'SignUp',
+                        params: { roleID: 2 }
+                    })} >
                         <View style={{ backgroundColor: Colors.Wheat, width: wp('90%'), height: hp('30%') }}>
                             <Image source={Icons.investor} style={{ width: wp('90%'), height: hp('24%'), resizeMode: "contain" }} />
                         </View>
                         <View style={{ position: 'absolute', bottom: -15 }}>
-                            <AppButton xlarge text="Sign Up as Investor" onPressed={() => navigation.navigate('SignUp')} />
+                            <AppButton xlarge text="Sign Up as Investor" onPressed={() => navigation.navigate('Auth', {
+                                screen: 'SignUp',
+                                params: { roleID: 2 }
+                            })} />
                         </View>
                     </TouchableWithoutFeedback>
-
                 </View>
+
                 <View style={styles.box2}>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('SignUp')} >
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('Auth', {
+                        screen: 'SignUp',
+                        params: { roleID: 3 }
+                    })} >
                         <View style={{ backgroundColor: Colors.Wheat, width: wp('90%'), height: hp('30%') }}>
                             <Image source={Icons.borrower} style={{ width: wp('90%'), height: hp('24%'), resizeMode: "contain" }} />
                         </View>
                         <View style={{ position: 'absolute', bottom: -15 }}>
-                            <AppButton xlarge text="Sign Up as Borrower" onPressed={() => navigation.navigate('SignUp')} />
+                            <AppButton xlarge text="Sign Up as Borrower" onPressed={() => navigation.navigate('Auth', {
+                                screen: 'SignUp',
+                                params: { roleID: 3 }
+                            })} />
                         </View>
                     </TouchableWithoutFeedback>
 

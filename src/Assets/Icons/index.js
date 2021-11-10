@@ -36,6 +36,7 @@ export default Icons = {
     cardsIcon: require('./cards.png'),
     paypalIcon: require('./paypal.png'),
     add_editIcon: require('./add-edit.png'),
+    logoutIcon: require('./logout.png'),
 
 };
 
